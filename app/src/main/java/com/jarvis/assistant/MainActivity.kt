@@ -227,7 +227,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 
             text.contains("alarme") -> {
 
-                setAlarm()
+                setAlarm(command)
             }
 
             text.contains("calendário") ||
@@ -565,8 +565,48 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             }
         }
     }
+private fun setAlarm(command: String) {
 
-    private fun setAlarm() {
+    val regex = Regex("""(\d{1,2})[:h](\d{1,2})""")
+    val match = regex.find(command)
+
+    if (match == null) {
+        speak("Diga o horário do alarme. Por exemplo, sete e quarenta.")
+        return
+    }
+
+    val hour = match.groupValues[1].toInt()
+    val minute = match.groupValues[2].toInt()
+
+    if (hour !in 0..23 || minute !in 0..59) {
+        speak("Esse horário não é válido.")
+        return
+    }
+
+    val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+        putExtra(AlarmClock.EXTRA_HOUR, hour)
+        putExtra(AlarmClock.EXTRA_MINUTES, minute)
+        putExtra(
+            AlarmClock.EXTRA_MESSAGE,
+            "ALARME JARVIS"
+        )
+        putExtra(
+            AlarmClock.EXTRA_SKIP_UI,
+            true
+        )
+    }
+
+    try {
+        startActivity(intent)
+
+        speak(
+            "Alarme definido para $hour horas e $minute minutos."
+        )
+
+    } catch (e: Exception) {
+        speak("Não consegui criar o alarme.")
+    }
+}
 
         val intent =
             Intent(AlarmClock.ACTION_SET_ALARM).apply {
