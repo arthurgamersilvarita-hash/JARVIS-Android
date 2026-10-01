@@ -608,30 +608,7 @@ private fun setAlarm(command: String) {
     }
 }
 
-        val intent =
-            Intent(AlarmClock.ACTION_SET_ALARM).apply {
 
-                putExtra(
-                    AlarmClock.EXTRA_MESSAGE,
-                    "Alarme JARVIS"
-                )
-            }
-
-        try {
-
-            startActivity(intent)
-
-            speak(
-                "Abrindo os alarmes."
-            )
-
-        } catch (e: Exception) {
-
-            speak(
-                "Não consegui abrir os alarmes."
-            )
-        }
-    }
 
     private fun openCalendar() {
 
