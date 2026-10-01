@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             JarvisApp(
                 onListen = { startListening() },
                 onCalendar = { openCalendar() },
-                onAlarm = { setAlarm() }
+                onAlarm = { startListening() }
             )
         }
     }
