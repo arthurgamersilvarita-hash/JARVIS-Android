@@ -102,7 +102,8 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             JarvisApp(
                 onListen = { startListening() },
                 onCalendar = { openCalendar() },
-                onAlarm = { startListening() }
+                onAlarm = { startListening() },
+onSettings = { openSettings() }
             )
         }
     }
@@ -800,19 +801,27 @@ fun JarvisApp(
                         text = status,
                         color =
                             Color.White.copy(
-                                alpha = 0.65f
+                    Icon            alpha = 0.65f
                             ),
                         fontSize = 12.sp
                     )
                 }
 
-                Icon(
-                    imageVector =
-                        Icons.Default.Settings,
-                    contentDescription =
-                        "Configurações",
-                    tint = Cyan
-                )
+                IconButton(
+    onClick = {
+        val context = androidx.compose.ui.platform.LocalContext.current
+        context.startActivity(
+            Intent(android.provider.Settings.ACTION_SETTINGS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+    }
+) {
+    Icon(
+        imageVector = Icons.Default.Settings,
+        contentDescription = "Configurações",
+        tint = Cyan
+    )
+                }
             }
 
             Spacer(
