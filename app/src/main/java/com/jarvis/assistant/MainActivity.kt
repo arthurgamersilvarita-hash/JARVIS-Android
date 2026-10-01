@@ -807,14 +807,21 @@ fun JarvisApp(
                     )
                 }
 
-                IconButton(
+val context = androidx.compose.ui.platform.LocalContext.current
+
+IconButton(
     onClick = {
-        val context = androidx.compose.ui.platform.LocalContext.current
         context.startActivity(
             Intent(android.provider.Settings.ACTION_SETTINGS)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
     }
+) {
+    Icon(
+        imageVector = Icons.Default.Settings,
+        contentDescription = "Configurações",
+        tint = Cyan
+    )
+}
 ) {
     Icon(
         imageVector = Icons.Default.Settings,
