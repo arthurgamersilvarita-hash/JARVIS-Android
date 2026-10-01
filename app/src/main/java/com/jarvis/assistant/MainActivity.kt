@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                 onListen = { startListening() },
                 onCalendar = { openCalendar() },
                 onAlarm = { startListening() },
-onSettings = { openSettings() }
+
             )
         }
     }
@@ -807,14 +807,6 @@ fun JarvisApp(
                     )
                 }
 
-val context = androidx.compose.ui.platform.LocalContext.current
-
-IconButton(
-    onClick = {
-        context.startActivity(
-            Intent(android.provider.Settings.ACTION_SETTINGS)
-        )
-    }
 ) {
     Icon(
         imageVector = Icons.Default.Settings,
